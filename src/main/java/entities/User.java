@@ -6,19 +6,16 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @NamedQueries({
-        @NamedQuery(name = "Hotel.findAll", query = "SELECT u FROM Hotel u")
-        })
+        @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+})
 @Entity
 @Getter
 @Setter
-public class Hotel {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
-    @Column(name = "STREET_ADDRESS")
-    private String streetAddress;
 }
