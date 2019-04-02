@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(name = "Hotel.findAll", query = "SELECT u FROM Hotel u")
+        })
 @Entity
 @Getter
 @Setter
