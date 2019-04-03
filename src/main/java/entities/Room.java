@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@NamedQueries({
+        @NamedQuery(name = "Room.findAll", query = "SELECT r FROM Room r")
+})
 @Entity
 @Getter
 @Setter

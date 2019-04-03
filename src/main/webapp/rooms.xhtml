@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+    <h2>Rooms in "#{roomsForHotel.hotel.name}" hotel</h2>
+
+    <h:dataTable value="#{roomsForHotel.hotel.rooms}" var="room">
+        <h:column>
+            <f:facet name="header">Number</f:facet>
+            #{room.number}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Type</f:facet>
+            #{room.type}
+        </h:column>
+    </h:dataTable>
+
+    <h:form>
+        <h:inputText a:placeholder="number" value="#{roomsForHotel.room.number}" required="true" />
+        <h:inputText a:placeholder="type" value="#{roomsForHotel.room.type}" required="true" />
+        <h:commandButton value="Add room to a hotel" action="#{roomsForHotel.createRoom}" >
+            <f:param name="hotelId" value="#{roomsForHotel.hotel.id}" />
+        </h:commandButton>
+    </h:form>
+</h:body>
+</html>

@@ -16,4 +16,5 @@ public class ReservationDAO {
         entityManager.persist(reservation);
     }
 
+    public Reservation findReservation(Long id) { return entityManager.find(Reservation.class, id); }
 }

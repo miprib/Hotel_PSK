@@ -1,11 +1,11 @@
 package dao;
 
-import entities.Hotel;
 import entities.Room;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class RoomDAO {
@@ -16,5 +16,11 @@ public class RoomDAO {
     public void addRoom(Room room) {
         entityManager.persist(room);
     }
+
+    public List<Room> getRooms() {
+        return entityManager.createNamedQuery("Room.findAll", Room.class).getResultList();
+    }
+
+    public Room findRoom(Long id) { return entityManager.find(Room.class, id); }
 
 }

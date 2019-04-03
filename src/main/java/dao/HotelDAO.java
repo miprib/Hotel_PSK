@@ -20,4 +20,7 @@ public class HotelDAO {
     public List<Hotel> getHotels() {
         return entityManager.createNamedQuery("Hotel.findAll", Hotel.class).getResultList();
     }
+
+    public Hotel findHotel(Long id) { return entityManager.find(Hotel.class, id); }
+
 }
