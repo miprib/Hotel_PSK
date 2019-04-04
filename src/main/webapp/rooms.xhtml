@@ -5,28 +5,43 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://java.sun.com/jsf/core">
-<h:head/>
+<h:head>
+    <h:outputStylesheet library="css" name="materialize.css" media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</h:head>
 <h:body>
-    <h2>Rooms in "#{roomsForHotel.hotel.name}" hotel</h2>
+    <main class="container">
+        <h2>Rooms in "#{roomsForHotel.hotel.name}" hotel</h2>
 
-    <h:dataTable value="#{roomsForHotel.hotel.rooms}" var="room">
-        <h:column>
-            <f:facet name="header">Number</f:facet>
-            #{room.number}
-        </h:column>
+        <h:dataTable value="#{roomsForHotel.hotel.rooms}" var="room" styleClass="striped">
+            <h:column>
+                <f:facet name="header">Number</f:facet>
+                #{room.number}
+            </h:column>
 
-        <h:column>
-            <f:facet name="header">Type</f:facet>
-            #{room.type}
-        </h:column>
-    </h:dataTable>
+            <h:column>
+                <f:facet name="header">Type</f:facet>
+                #{room.type}
+            </h:column>
+        </h:dataTable>
 
-    <h:form>
-        <h:inputText a:placeholder="number" value="#{roomsForHotel.room.number}" required="true" />
-        <h:inputText a:placeholder="type" value="#{roomsForHotel.room.type}" required="true" />
-        <h:commandButton value="Add room to a hotel" action="#{roomsForHotel.createRoom}" >
-            <f:param name="hotelId" value="#{roomsForHotel.hotel.id}" />
-        </h:commandButton>
-    </h:form>
+        <h2>Add a room</h2>
+
+        <h:form>
+            <h:inputText a:placeholder="Number" value="#{roomsForHotel.room.number}" required="true" styleClass="input-field"/>
+            <h:inputText a:placeholder="Type" value="#{roomsForHotel.room.type}" required="true" styleClass="input-field"/>
+
+            <h:commandLink action="#{roomsForHotel.createRoom}"
+                           styleClass="waves-effect waves-light btn-large teal darken-2">
+                <i class="large material-icons left">hotel</i>add
+                <f:param name="hotelId" value="#{roomsForHotel.hotel.id}" />
+            </h:commandLink>
+        </h:form>
+        <br/>
+    </main>
+
+    <ui:insert name="footer">
+        <ui:include src="footer.xhtml"/>
+    </ui:insert>
 </h:body>
 </html>

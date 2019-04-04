@@ -5,30 +5,45 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head/>
+<h:head>
+    <h:outputStylesheet library="css" name="materialize.css" media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</h:head>
 <h:body>
-    <h2>Hotels:</h2>
+    <main class="container">
+        <h2>Hotels</h2>
 
-    <h:dataTable value="#{hotels.allHotels}" var="hotel">
-        <h:column>
-            <f:facet name="header">Name</f:facet>
-            #{hotel.name}
-        </h:column>
+        <h:dataTable value="#{hotels.allHotels}" var="hotel" styleClass="striped">
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:link value="#{hotel.name}" outcome="rooms?hotelId=#{hotel.id}"/>
+            </h:column>
 
-        <h:column>
-            <f:facet name="header">Street Address</f:facet>
-            #{hotel.streetAddress}
-        </h:column>
+            <h:column>
+                <f:facet name="header">Street Address</f:facet>
+                #{hotel.streetAddress}
+            </h:column>
+        </h:dataTable>
+        <br/>
 
-        <h:column>
-            <h:button value="?" outcome="rooms?hotelId=#{hotel.id}"/>
-        </h:column>
-    </h:dataTable>
+        <h2>Add a hotel</h2>
 
-    <h:form>
-        <h:inputText a:placeholder="number" value="#{hotels.hotelToCreate.name}" required="true" />
-        <h:inputText a:placeholder="street address" value="#{hotels.hotelToCreate.streetAddress}" required="true" />
-        <h:commandButton value="Add new Hotel" action="#{hotels.createHotel}" />
-    </h:form>
+        <h:form>
+            <h:inputText a:placeholder="Name" value="#{hotels.hotelToCreate.name}" required="true"
+                         styleClass="input-field"/>
+            <h:inputText a:placeholder="Street Address" value="#{hotels.hotelToCreate.streetAddress}" required="true"
+                         styleClass="input-field"/>
+
+            <h:commandLink action="#{hotels.createHotel}"
+                           styleClass="waves-effect waves-light btn-large teal darken-2">
+                <i class="large material-icons left">hotel</i>add
+            </h:commandLink>
+        </h:form>
+        <br/>
+    </main>
+
+    <ui:insert name="footer">
+        <ui:include src="footer.xhtml"/>
+    </ui:insert>
 </h:body>
 </html>
