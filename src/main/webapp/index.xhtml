@@ -10,32 +10,37 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 </h:head>
 <h:body>
+    <ui:insert name="nav">
+        <ui:include src="nav.xhtml"/>
+    </ui:insert>
+
     <main class="container">
-        <h2>Hotels</h2>
+        <h:form rendered="#{not empty hotels.allHotels}">
+            <h2>Hotels</h2>
+            <h:dataTable value="#{hotels.allHotels}" var="hotel" styleClass="striped">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:link value="#{hotel.name}" outcome="rooms?hotelId=#{hotel.id}"/>
+                </h:column>
 
-        <h:dataTable value="#{hotels.allHotels}" var="hotel" styleClass="striped">
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                <h:link value="#{hotel.name}" outcome="rooms?hotelId=#{hotel.id}"/>
-            </h:column>
-
-            <h:column>
-                <f:facet name="header">Street Address</f:facet>
-                #{hotel.streetAddress}
-            </h:column>
-        </h:dataTable>
+                <h:column>
+                    <f:facet name="header">Street Address</f:facet>
+                    #{hotel.streetAddress}
+                </h:column>
+            </h:dataTable>
+        </h:form>
         <br/>
 
         <h2>Add a hotel</h2>
 
-        <h:form>
+        <h:form styleClass="row">
             <h:inputText a:placeholder="Name" value="#{hotels.hotelToCreate.name}" required="true"
-                         styleClass="input-field"/>
+                         styleClass="input-field col s5"/>
             <h:inputText a:placeholder="Street Address" value="#{hotels.hotelToCreate.streetAddress}" required="true"
-                         styleClass="input-field"/>
-
+                         styleClass="input-field col s5 offset-s2"/>
+            <br/>
             <h:commandLink action="#{hotels.createHotel}"
-                           styleClass="waves-effect waves-light btn-large teal darken-2">
+                           styleClass="waves-effect waves-light btn-large">
                 <i class="large material-icons left">hotel</i>add
             </h:commandLink>
         </h:form>

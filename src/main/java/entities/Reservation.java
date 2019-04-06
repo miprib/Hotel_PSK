@@ -5,7 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,14 +20,19 @@ public class Reservation {
     private Long id;
 
     @Column(name = "FROM_DATE")
-    private Timestamp fromDate;
+    private String fromDate;
 
     @Column(name = "TO_DATE")
-    private Timestamp toDate;
+    private String toDate;
 
-    @OneToOne
-    private User user;
+    @Column(name = "CUSTOMER_NAME")
+    private String customerName;
 
-    @ManyToMany(mappedBy = "reservations")
-    private Set<Room> rooms = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "RESERVATION_ROOM",
+            joinColumns = { @JoinColumn(name = "RESERVATION_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "ROOM_ID") }
+    )
+    private List<Room> rooms = new ArrayList<>();
 }

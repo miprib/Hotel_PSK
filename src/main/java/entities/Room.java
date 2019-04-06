@@ -4,11 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = "Room.findAll", query = "SELECT r FROM Room r")
+        @NamedQuery(name = "Room.findAll", query = "SELECT r FROM Room r"),
+        @NamedQuery(name = "Room.findSpecific", query = "SELECT r FROM Room r WHERE r.id IN (:roomIDs)")
 })
 @Entity
 @Getter
@@ -25,6 +28,6 @@ public class Room {
     @ManyToOne
     private Hotel hotel;
 
-    @ManyToMany
-    Set<Reservation> reservations = new HashSet<>();
+    @ManyToMany(mappedBy = "rooms")
+    List<Reservation> reservations = new ArrayList<>();
 }

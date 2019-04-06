@@ -10,31 +10,63 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 </h:head>
 <h:body>
+    <ui:insert name="nav">
+        <ui:include src="nav.xhtml"/>
+    </ui:insert>
+
     <main class="container">
-        <h2>Rooms in "#{roomsForHotel.hotel.name}" hotel</h2>
+        <h:form rendered="#{not empty roomsForHotel.hotel.rooms}">
+            <h2>Rooms in "#{roomsForHotel.hotel.name}" hotel</h2>
+            <h:dataTable  value="#{roomsForHotel.hotel.rooms}" var="room" styleClass="striped">
+                <h:column>
+                    <h:outputLabel>
+                        <h:selectBooleanCheckbox value="#{roomsForHotel.checkMap[room.id]}"/>
+                        <span></span>
+                    </h:outputLabel>
+                </h:column>
 
-        <h:dataTable value="#{roomsForHotel.hotel.rooms}" var="room" styleClass="striped">
-            <h:column>
-                <f:facet name="header">Number</f:facet>
-                #{room.number}
-            </h:column>
+                <h:column>
+                    <f:facet name="header">Number</f:facet>
+                    #{room.number}
+                </h:column>
 
-            <h:column>
-                <f:facet name="header">Type</f:facet>
-                #{room.type}
-            </h:column>
-        </h:dataTable>
+                <h:column>
+                    <f:facet name="header">Type</f:facet>
+                    #{room.type}
+                </h:column>
+            </h:dataTable>
+            <br/>
+
+            <div class="row">
+                <h:inputText a:placeholder="Name" value="#{roomsForHotel.reservation.customerName}" required="true"
+                             styleClass="input-field col s12"/>
+                <h:inputText a:placeholder="From" value="#{roomsForHotel.reservation.fromDate}" required="true"
+                             styleClass="datepicker col s5"/>
+                <h:inputText a:placeholder="To" value="#{roomsForHotel.reservation.toDate}" required="true"
+                             styleClass="datepicker col s5 offset-s2"/>
+                <br/>
+
+                <h:commandLink action="#{roomsForHotel.createReservation}"
+                               styleClass="waves-effect waves-light btn-large">
+                    <i class="large material-icons left">hotel</i>make a reservation
+                    <f:param name="hotelId" value="#{roomsForHotel.hotel.id}"/>
+                </h:commandLink>
+            </div>
+        </h:form>
+        <br/>
 
         <h2>Add a room</h2>
 
-        <h:form>
-            <h:inputText a:placeholder="Number" value="#{roomsForHotel.room.number}" required="true" styleClass="input-field"/>
-            <h:inputText a:placeholder="Type" value="#{roomsForHotel.room.type}" required="true" styleClass="input-field"/>
+        <h:form styleClass="row">
+            <h:inputText a:placeholder="Number" value="#{roomsForHotel.room.number}" required="true"
+                         styleClass="input-field col s5"/>
+            <h:inputText a:placeholder="Type" value="#{roomsForHotel.room.type}" required="true"
+                         styleClass="input-field col s5 offset-s2"/>
 
             <h:commandLink action="#{roomsForHotel.createRoom}"
-                           styleClass="waves-effect waves-light btn-large teal darken-2">
+                           styleClass="waves-effect waves-light btn-large">
                 <i class="large material-icons left">hotel</i>add
-                <f:param name="hotelId" value="#{roomsForHotel.hotel.id}" />
+                <f:param name="hotelId" value="#{roomsForHotel.hotel.id}"/>
             </h:commandLink>
         </h:form>
         <br/>
@@ -43,5 +75,9 @@
     <ui:insert name="footer">
         <ui:include src="footer.xhtml"/>
     </ui:insert>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <h:outputScript library = "js" name = "materialize.js" />
+    <h:outputScript library = "js" name = "util.js" />
 </h:body>
 </html>
