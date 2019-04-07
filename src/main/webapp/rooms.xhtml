@@ -17,7 +17,13 @@
     <main class="container">
         <h:form rendered="#{not empty roomsForHotel.hotel.rooms}">
             <h2>Rooms in "#{roomsForHotel.hotel.name}" hotel</h2>
-            <h:dataTable  value="#{roomsForHotel.hotel.rooms}" var="room" styleClass="striped">
+
+            <h:link rendered="#{not empty reservations.allReservations}" class="waves-effect waves-light btn-large"
+                    outcome="reservations.xhtml?hotelId=#{roomsForHotel.hotel.id}">
+                <i class="large material-icons left">hotel</i>Open Reservations
+            </h:link>
+
+            <h:dataTable value="#{roomsForHotel.hotel.rooms}" var="room" styleClass="striped">
                 <h:column>
                     <h:outputLabel>
                         <h:selectBooleanCheckbox value="#{roomsForHotel.checkMap[room.id]}"/>
@@ -77,7 +83,7 @@
     </ui:insert>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <h:outputScript library = "js" name = "materialize.js" />
-    <h:outputScript library = "js" name = "util.js" />
+    <h:outputScript library="js" name="materialize.js"/>
+    <h:outputScript library="js" name="util.js"/>
 </h:body>
 </html>

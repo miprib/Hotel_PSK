@@ -37,7 +37,7 @@ public class Hotels implements Serializable {
     @Transactional
     public String createHotel() {
         this.hotelDAO.addHotel(hotelToCreate);
-        return "success";
+        return "index?faces-redirect=true";
     }
 
     private void loadAllHotels() {

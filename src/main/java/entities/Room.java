@@ -28,6 +28,6 @@ public class Room {
     @ManyToOne
     private Hotel hotel;
 
-    @ManyToMany(mappedBy = "rooms")
+    @ManyToMany(mappedBy = "rooms", cascade = { CascadeType.ALL })
     List<Reservation> reservations = new ArrayList<>();
 }

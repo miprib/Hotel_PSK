@@ -61,7 +61,7 @@ public class RoomsForHotel implements Serializable {
         room.setHotel(this.hotel);
         roomDAO.addRoom(room);
 
-        return "/rooms.xhtml?faces-redirect=true&hotelId=" + this.hotel.getId();
+        return "rooms?faces-redirect=true&hotelId=" + this.hotel.getId();
     }
 
     @Transactional
@@ -73,7 +73,7 @@ public class RoomsForHotel implements Serializable {
         reservation.setRooms(rooms);
         reservationDAO.addReservation(reservation);
 
-        return "/rooms.xhtml?faces-redirect=true&hotelId=" + this.hotel.getId();
+        return "rooms?faces-redirect=true&hotelId=" + this.hotel.getId();
     }
 
     private List<Long> getCheckedRooms() {
