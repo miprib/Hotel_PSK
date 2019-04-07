@@ -1,17 +1,13 @@
 package dao;
 
 import entities.Hotel;
-import entities.Room;
-import lombok.Getter;
-import lombok.Setter;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Map;
 
-@Stateless
+@ApplicationScoped
 public class HotelDAO {
 
     @PersistenceContext(unitName = "hotel-h2")

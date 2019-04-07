@@ -1,16 +1,14 @@
 package dao;
 
-import entities.Hotel;
 import entities.Reservation;
-import entities.Room;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@Stateless
+@ApplicationScoped
 public class ReservationDAO {
 
     @PersistenceContext(unitName = "hotel-h2")
@@ -20,10 +18,6 @@ public class ReservationDAO {
         entityManager.persist(reservation);
     }
 
-    public List<Reservation> getReservations() {
-        return entityManager.createNamedQuery("Reservation.findAll", Reservation.class).getResultList();
-    }
-
     public List<Reservation> getReservationsForHotel(Long hotelId) {
         Query query = entityManager.createNamedQuery("Reservation.findForHotel", Reservation.class);
         query.setParameter("hotelId", hotelId);
@@ -31,5 +25,7 @@ public class ReservationDAO {
         return query.getResultList();
     }
 
-    public Reservation findReservation(Long id) { return entityManager.find(Reservation.class, id); }
+    public Reservation findReservation(Long id) {
+        return entityManager.find(Reservation.class, id);
+    }
 }

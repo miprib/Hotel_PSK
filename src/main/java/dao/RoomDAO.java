@@ -2,15 +2,13 @@ package dao;
 
 import entities.Room;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-@Stateless
+@ApplicationScoped
 public class RoomDAO {
 
     @PersistenceContext(unitName = "hotel-h2")
@@ -31,6 +29,8 @@ public class RoomDAO {
         return query.getResultList();
     }
 
-    public Room findRoom(Long id) { return entityManager.find(Room.class, id); }
+    public Room findRoom(Long id) {
+        return entityManager.find(Room.class, id);
+    }
 
 }
