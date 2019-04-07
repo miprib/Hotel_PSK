@@ -17,16 +17,15 @@ import java.io.Serializable;
 import java.util.List;
 
 @Model
+@Getter
+@Setter
 public class Hotels implements Serializable {
 
     @Inject
     private HotelDAO hotelDAO;
 
-    @Getter
-    @Setter
     private Hotel hotelToCreate = new Hotel();
 
-    @Getter
     private List<Hotel> allHotels;
 
     @PostConstruct

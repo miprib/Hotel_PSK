@@ -1,9 +1,8 @@
-package usecases;
+package usecases.mybatis;
 
-import dao.ReservationDAO;
-import entities.Reservation;
 import lombok.Getter;
-import lombok.Setter;
+import mybatis.dao.ReservationMapper;
+import mybatis.model.Reservation;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -13,13 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 @Model
-@Getter
-@Setter
-public class Reservations {
+public class ReservationsMyBatis {
 
     @Inject
-    private ReservationDAO reservationDAO;
+    private ReservationMapper reservationDAO;
 
+    @Getter
     private List<Reservation> allReservations;
 
     @PostConstruct

@@ -11,15 +11,14 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Model
+@Getter
+@Setter
 public class HotelsMyBatis {
     @Inject
     private HotelMapper hotelDAO;
 
-    @Getter
-    @Setter
     private Hotel hotelToCreate = new Hotel();
 
-    @Getter
     private List<Hotel> allHotels;
 
     @PostConstruct

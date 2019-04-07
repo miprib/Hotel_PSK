@@ -20,7 +20,7 @@
             <h:dataTable value="#{hotelsMyBatis.allHotels}" var="hotel" styleClass="striped">
                 <h:column>
                     <f:facet name="header">Name</f:facet>
-                    <h:link value="#{hotel.name}" outcome="rooms?hotelId=#{hotel.id}"/>
+                    <h:link value="#{hotel.name}" outcome="roomsMyBatis?hotelId=#{hotel.id}"/>
                 </h:column>
 
                 <h:column>

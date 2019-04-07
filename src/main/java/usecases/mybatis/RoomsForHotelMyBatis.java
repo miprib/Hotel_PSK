@@ -1,13 +1,15 @@
-package usecases;
+package usecases.mybatis;
 
-import dao.HotelDAO;
-import dao.ReservationDAO;
-import dao.RoomDAO;
-import entities.Hotel;
-import entities.Reservation;
-import entities.Room;
 import lombok.Getter;
 import lombok.Setter;
+import mybatis.dao.HotelMapper;
+import mybatis.dao.ReservationMapper;
+import mybatis.dao.ReservationRoomMapper;
+import mybatis.dao.RoomMapper;
+import mybatis.model.Hotel;
+import mybatis.model.Reservation;
+import mybatis.model.ReservationRoom;
+import mybatis.model.Room;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -20,17 +22,20 @@ import java.util.*;
 @Model
 @Getter
 @Setter
-public class RoomsForHotel implements Serializable {
+public class RoomsForHotelMyBatis implements Serializable {
 
     @Inject
-    private RoomDAO roomDAO;
+    private RoomMapper roomDAO;
     @Inject
-    private HotelDAO hotelDAO;
+    private HotelMapper hotelDAO;
     @Inject
-    private ReservationDAO reservationDAO;
+    private ReservationMapper reservationDAO;
+    @Inject
+    private ReservationRoomMapper reservationRoomDAO;
 
     private Room room = new Room();
     private Reservation reservation = new Reservation();
+    private ReservationRoom reservationRoom = new ReservationRoom();
 
     private Hotel hotel;
 
@@ -43,27 +48,35 @@ public class RoomsForHotel implements Serializable {
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Long hotelId = Long.parseLong(requestParameters.get("hotelId"));
-        this.hotel = hotelDAO.findHotel(hotelId);
+        this.hotel = hotelDAO.selectByPrimaryKey(hotelId);
     }
 
     @Transactional
     public String createRoom() {
-        room.setHotel(this.hotel);
-        roomDAO.addRoom(room);
+        room.setHotelId(this.hotel.getId());
+        roomDAO.insert(room);
 
-        return "rooms?faces-redirect=true&hotelId=" + this.hotel.getId();
+        return "roomsMyBatis?faces-redirect=true&hotelId=" + this.hotel.getId();
     }
 
     @Transactional
     public String createReservation() {
         List<Long> checkedRooms = getCheckedRooms();
 
-        rooms = roomDAO.getSpecificRooms(checkedRooms);
+        rooms = roomDAO.selectSpecific(checkedRooms);
 
-        reservation.setRooms(rooms);
-        reservationDAO.addReservation(reservation);
+        reservationDAO.insert(reservation);
 
-        return "rooms?faces-redirect=true&hotelId=" + this.hotel.getId();
+        for(Room r: rooms){
+            reservationRoom.setReservationId(reservation.getId());
+            reservationRoom.setRoomId(r.getId());
+
+            reservationRoomDAO.insert(reservationRoom);
+        }
+
+
+
+        return "roomsMyBatis?faces-redirect=true&hotelId=" + this.hotel.getId();
     }
 
     private List<Long> getCheckedRooms() {
