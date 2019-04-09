@@ -18,7 +18,7 @@
         <h:form rendered="#{not empty roomsForHotelMyBatis.hotel.rooms}">
             <h2>Rooms in "#{roomsForHotel.hotel.name}" hotel (MyBatis)</h2>
 
-            <h:link rendered="#{not empty reservations.allReservations}" class="waves-effect waves-light btn-large"
+            <h:link rendered="#{not empty reservationsMyBatis.allReservations}" class="waves-effect waves-light btn-large"
                     outcome="reservationsMyBatis.xhtml?hotelId=#{roomsForHotel.hotel.id}">
                 <i class="large material-icons left">hotel</i>Open Reservations
             </h:link>

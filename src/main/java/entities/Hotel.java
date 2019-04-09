@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NamedQueries({
-        @NamedQuery(name = "Hotel.findAll", query = "SELECT u FROM Hotel u")
+        @NamedQuery(name = "Hotel.findAll", query = "SELECT h FROM Hotel h JOIN FETCH h.rooms")
         })
 @Entity
 @Getter
@@ -24,6 +24,6 @@ public class Hotel {
     @Column(name = "STREET_ADDRESS")
     private String streetAddress;
 
-    @OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @OneToMany(mappedBy = "hotel", cascade = { CascadeType.ALL })
     private List<Room> rooms = new ArrayList<>();
 }
