@@ -25,4 +25,8 @@ public class HotelDAO {
         return entityManager.find(Hotel.class, id);
     }
 
+    public Hotel updateHotel(Hotel hotel){
+        return entityManager.merge(hotel);
+    }
+
 }

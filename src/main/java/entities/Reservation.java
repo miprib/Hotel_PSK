@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = "Reservation.findForHotel", query = "SELECT DISTINCT r FROM Reservation r JOIN FETCH r.rooms rr WHERE rr.hotel.id = :hotelId")
+        @NamedQuery(name = "Reservation.findForHotel", query = "SELECT DISTINCT r FROM Reservation r JOIN r.rooms rr WHERE rr.hotel.id = :hotelId")
 })
 @Entity
 @Getter
@@ -31,7 +31,7 @@ public class Reservation {
     @Column(name = "CUSTOMER_NAME")
     private String customerName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "RESERVATION_ROOM",
             joinColumns = { @JoinColumn(name = "RESERVATION_ID") },
