@@ -15,24 +15,17 @@
     </ui:insert>
 
     <main class="container">
-        <h2>Edit hotel</h2>
-
-        <h:form styleClass="row">
-            <h:inputText a:placeholder="Name" value="#{hotelUpdate.hotel.name}" required="true"
-                         styleClass="input-field col s5"/>
-            <h:inputText a:placeholder="Address" value="#{hotelUpdate.hotel.streetAddress}" required="true"
-                         styleClass="input-field col s5 offset-s2"/>
-
-            <h:commandLink action="#{hotelUpdate.updateHotel}"
-                           styleClass="waves-effect waves-light btn-large">
-                <i class="large material-icons left">hotel</i>Update
-                <f:param name="hotelId" value="#{hotelUpdate.hotel.id}"/>
+        <h2>BTC mining</h2>
+        <h:form>
+            <h:commandLink action="#{simulateWork.mineBTC}"
+                           disabled="#{simulateWork.mining}"
+                           styleClass="col s3 waves-effect waves-light btn-large">
+                <i class="large material-icons left">hotel</i>Mine BTC
             </h:commandLink>
         </h:form>
+        <br/>
 
-        <h:outputText value="Value was already modified by another user. To override it - try again."
-                      styleClass="red-text text-darken-2"
-                      rendered="#{param['error'] == 'optimistic-lock-exception'}" />
+        <h:outputText styleClass="green-text text-darken-2" value="#{simulateWork.miningStatus}" />
     </main>
 
     <ui:insert name="footer">

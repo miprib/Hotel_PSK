@@ -24,7 +24,8 @@
                     <i class="large material-icons left">hotel</i>Edit
                 </h:link>
 
-                <h:link rendered="#{not empty reservations.allReservations}" class="col s3 offset-s1 waves-effect waves-light btn-large"
+                <h:link rendered="#{not empty reservations.allReservations}"
+                        class="col s3 offset-s1 waves-effect waves-light btn-large"
                         outcome="reservations.xhtml?hotelId=#{roomsForHotel.hotel.id}">
                     <i class="large material-icons left">hotel</i>Open Reservations
                 </h:link>
