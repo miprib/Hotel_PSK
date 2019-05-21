@@ -1,11 +1,8 @@
 package usecases;
 
 import dao.HotelDAO;
-import dao.ReservationDAO;
-import dao.RoomDAO;
 import entities.Hotel;
-import entities.Reservation;
-import entities.Room;
+import interceptors.LoggedInvocation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +14,7 @@ import javax.inject.Inject;
 import javax.persistence.OptimisticLockException;
 import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Map;
 
 @ViewScoped
 @Model
@@ -39,11 +36,12 @@ public class HotelUpdate implements Serializable {
     }
 
     @Transactional
-    public String updateHotel(){
+    @LoggedInvocation
+    public String updateHotel() {
         try {
             System.out.println(this.hotel.toString());
             hotelDAO.updateHotel(this.hotel);
-        }catch(OptimisticLockException e){
+        } catch (OptimisticLockException e) {
             return "updateHotel?faces-redirect=true&hotelId=" + this.hotel.getId() + "&error=optimistic-lock-exception";
         }
 

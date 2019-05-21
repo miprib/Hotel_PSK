@@ -4,10 +4,8 @@ import services.BTCMiningService;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -22,7 +20,7 @@ public class SimulateWork implements Serializable {
     public String mineBTC() {
         miningTask = BTCMiningService.mineBTC();
 
-        return  "mineBTC.xhtml?faces-redirect=true";
+        return "mineBTC.xhtml?faces-redirect=true";
     }
 
     public boolean isMining() {
