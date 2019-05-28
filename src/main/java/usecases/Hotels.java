@@ -2,7 +2,7 @@ package usecases;
 
 import dao.HotelDAO;
 import entities.Hotel;
-import interceptors.LoggedInvocation;
+import interceptors.MyInterceptor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,7 +31,7 @@ public class Hotels implements Serializable {
     }
 
     @Transactional
-    @LoggedInvocation
+    @MyInterceptor
     public String createHotel() {
         this.hotelDAO.addHotel(hotelToCreate);
         return "index?faces-redirect=true";

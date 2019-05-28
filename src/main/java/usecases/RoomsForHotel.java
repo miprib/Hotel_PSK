@@ -6,7 +6,7 @@ import dao.RoomDAO;
 import entities.Hotel;
 import entities.Reservation;
 import entities.Room;
-import interceptors.LoggedInvocation;
+import interceptors.MyInterceptor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,7 +48,7 @@ public class RoomsForHotel implements Serializable {
     }
 
     @Transactional
-    @LoggedInvocation
+    @MyInterceptor
     public String createRoom() {
         room.setHotel(this.hotel);
         roomDAO.addRoom(room);
@@ -57,7 +57,7 @@ public class RoomsForHotel implements Serializable {
     }
 
     @Transactional
-    @LoggedInvocation
+    @MyInterceptor
     public String createReservation() {
         List<Long> checkedRooms = getCheckedRooms();
 

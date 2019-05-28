@@ -2,7 +2,7 @@ package usecases;
 
 import dao.HotelDAO;
 import entities.Hotel;
-import interceptors.LoggedInvocation;
+import interceptors.MyInterceptor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,7 +36,7 @@ public class HotelUpdate implements Serializable {
     }
 
     @Transactional
-    @LoggedInvocation
+    @MyInterceptor
     public String updateHotel() {
         try {
             System.out.println(this.hotel.toString());

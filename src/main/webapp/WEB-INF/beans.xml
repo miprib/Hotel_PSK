@@ -9,4 +9,12 @@
     <interceptors>
         <class>interceptors.MethodLogger</class>
     </interceptors>
+
+    <alternatives>
+        <class>services.implementations.ETHMiningService</class>
+    </alternatives>
+
+    <decorators>
+        <class>decorators.ServiceDecorator</class>
+    </decorators>
 </beans>

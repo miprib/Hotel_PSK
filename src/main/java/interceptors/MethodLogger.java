@@ -6,7 +6,7 @@ import javax.interceptor.InvocationContext;
 import java.io.Serializable;
 
 @Interceptor
-@LoggedInvocation
+@MyInterceptor
 public class MethodLogger implements Serializable{
     @AroundInvoke
     public Object logMethodInvocation(InvocationContext context) throws Exception {

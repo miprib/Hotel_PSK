@@ -1,6 +1,6 @@
 package usecases;
 
-import services.BTCMiningService;
+import services.Service;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
@@ -13,14 +13,14 @@ import java.util.concurrent.Future;
 @Model
 public class SimulateWork implements Serializable {
     @Inject
-    BTCMiningService BTCMiningService;
+    Service service;
 
-    private Future<Integer> miningTask = null;
+    private Future<String> miningTask = null;
 
-    public String mineBTC() {
-        miningTask = BTCMiningService.mineBTC();
+    public String mine() {
+        miningTask = service.doWork();
 
-        return "mineBTC.xhtml?faces-redirect=true";
+        return "mine.xhtml?faces-redirect=true";
     }
 
     public boolean isMining() {
@@ -33,6 +33,8 @@ public class SimulateWork implements Serializable {
         } else if (isMining()) {
             return "Mining in progress";
         }
-        return "BTC mined: " + miningTask.get();
+        System.out.println("Cryptocurrency mining completed");
+
+        return miningTask.get();
     }
 }

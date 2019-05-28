@@ -3,7 +3,7 @@ package api.controllers;
 import api.dto.HotelDTO;
 import dao.HotelDAO;
 import entities.Hotel;
-import interceptors.LoggedInvocation;
+import interceptors.MyInterceptor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +27,7 @@ public class ReservationController {
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @LoggedInvocation
+    @MyInterceptor
     public Response get(@PathParam("id") final Long id) {
         Hotel hotel = hotelDAO.findHotel(id);
         if (hotel == null) {
@@ -45,7 +45,7 @@ public class ReservationController {
     @Path("/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @LoggedInvocation
+    @MyInterceptor
     @Transactional
     public Response put(
             @PathParam("id") final Long id,
@@ -69,7 +69,7 @@ public class ReservationController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @LoggedInvocation
+    @MyInterceptor
     @Transactional
     public Response post(HotelDTO hotelDTO) {
         Hotel hotel = new Hotel();

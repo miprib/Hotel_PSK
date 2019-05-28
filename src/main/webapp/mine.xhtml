@@ -15,12 +15,18 @@
     </ui:insert>
 
     <main class="container">
-        <h2>BTC mining</h2>
+        <h2>Crypto mining</h2>
         <h:form>
-            <h:commandLink action="#{simulateWork.mineBTC}"
-                           disabled="#{simulateWork.mining}"
+            <h:commandLink action="#{simulateWork.mine}"
+                           rendered="#{!simulateWork.mining}"
                            styleClass="col s3 waves-effect waves-light btn-large">
-                <i class="large material-icons left">hotel</i>Mine BTC
+                <i class="large material-icons left">hotel</i>Mine
+            </h:commandLink>
+
+            <h:commandLink action="#{simulateWork.mine}"
+                           rendered="#{simulateWork.mining}"
+                           styleClass="col s3 btn-large disabled">
+                <i class="large material-icons left">hotel</i>Mine
             </h:commandLink>
         </h:form>
         <br/>
